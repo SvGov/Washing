@@ -1,5 +1,7 @@
 package com.example.washing.clothes;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.washing.R;
+import com.example.washing.activity.AddActivity;
+import com.example.washing.activity.EditActivity;
 
 public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesViewHolder> {
 //    private final List<Clothes> cards;
@@ -16,10 +20,11 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesV
 //        this.cards = cards;
 //    }
 
-    private final ClothesDao dao;
+    private Context context;
 
-    public ClothesAdapter(ClothesDao dao) {
-        this.dao = dao;
+
+    public ClothesAdapter(Context context) {
+        this.context = context;
     }
 
     // Создает необходимое число холдеров ("карточек")
@@ -34,13 +39,21 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesV
     // Отображает на холдерах нужную нам информацию
     @Override
     public void onBindViewHolder(@NonNull ClothesViewHolder holder, int index) {
-        holder.title.setText(dao.get(index).getTitle());
-        holder.photoClothes.setImageResource(dao.get(index).getIdClothes());
+        holder.title.setText(ClothesDao.get(index).getTitle());
+        holder.photoClothes.setImageResource(ClothesDao.get(index).getIdClothes());
+
+        holder.itemView.setOnClickListener(
+                view -> {
+                    Intent intent = new Intent(context, EditActivity.class);
+                    intent.putExtra("index", index);
+                    context.startActivity(intent);
+                }
+        );
     }
 
     @Override
     public int getItemCount() {
-        return dao.size();
+        return ClothesDao.size();
     }
 
     public static class ClothesViewHolder extends RecyclerView.ViewHolder {

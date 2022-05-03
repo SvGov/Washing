@@ -26,7 +26,7 @@
             android:id="@+id/iv_clothes"
             android:layout_width="400dp"
             android:layout_height="400dp"
-            android:src="@drawable/icon_image_48"
+            android:src="@drawable/hanger"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             android:contentDescription="Фото одежды">

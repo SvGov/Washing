@@ -15,7 +15,6 @@ import com.example.washing.clothes.ClothesDao;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ClothesAdapter adapter;
-    private ClothesDao dao;
 
 
     @Override
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new ClothesAdapter(dao);
+        adapter = new ClothesAdapter(this);
 
         RecyclerView recycler = findViewById(R.id.rv_cards_clothes);
         recycler.setHasFixedSize(true);
