@@ -32,14 +32,6 @@
             android:contentDescription="Фото одежды">
     </ImageView>
 
-    <Button
-            android:id="@+id/b_choose_clothes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Выбрать..."
-            android:layout_gravity="start"
-            android:onClick="choose_img"
-            />
 
     <Button
             android:text="Сохранить"

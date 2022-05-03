@@ -33,17 +33,6 @@ public class AddActivity extends AppCompatActivity {
         binding = ActivityAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mTakePhoto = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri result) {
-                        binding.ivClothes.setImageURI(result);
-                    }
-
-                }
-        );
-
     }
 
 
@@ -64,61 +53,4 @@ public class AddActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    public void choose_img(View view) {
-        // проверить разрешение во время выполнения
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED) {
-                // разрешение не предоставлено, запросить его
-                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                // показать всплывающее окно для получения разрешения
-                requestPermissions(permissions, PERMISSION_CODE);
-            }
-            else {
-                // разрешение уже предоставлено
-                pickImageFromGallery();
-            }
-        }
-        else {
-            // system os меньше, чем marshmallow
-            pickImageFromGallery();
-        }
-    }
-
-    private void pickImageFromGallery() {
-//        // intent для загрузки изображения
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType("image/*");
-//        startActivityForResult(intent, IMAGE_PICK_CODE);
-        mTakePhoto.launch("image/*");
-    }
-
-    // обрабатывать результат разрешения во время выполнения
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_CODE: {
-                if (grantResults.length > 0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
-                    // разрешение было получено
-                    pickImageFromGallery();
-                } else {
-                    // в разрешении было отказано
-                    Toast.makeText(this, "В разрешении отказано!", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-//            // установить изображение image view
-//            binding.ivClothes.setImageURI(data.getData());
-//        }
-//    }
 }
