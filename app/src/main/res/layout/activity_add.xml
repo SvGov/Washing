@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+              android:layout_height="match_parent" android:orientation="vertical">
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/et_view_title"
+            android:hint="Название: "
+            android:imeOptions="normal"
+    />
+    <EditText
+            android:id="@+id/et_view_name_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Название фото одежды: "
+            android:autofillHints="no"
+            android:inputType="text"/>
+
+
+    <ImageView
+            android:id="@+id/iv_clothes"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/icon_image_48"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:contentDescription="Фото одежды">
+    </ImageView>
+
+    <Button
+            android:id="@+id/b_choose_clothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выбрать..."
+            android:layout_gravity="start"
+            android:onClick="choose_img"
+            />
+
+    <Button
+            android:text="Сохранить"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/b_view_save"
+            android:layout_gravity="bottom"
+            android:onClick="save"/>
+</LinearLayout>
