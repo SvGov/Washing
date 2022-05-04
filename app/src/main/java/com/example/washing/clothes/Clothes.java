@@ -3,13 +3,28 @@ package com.example.washing.clothes;
 import java.util.Objects;
 
 public class Clothes {
+    private int idDB;
     private String title;
     private int IdClothes;
 //    private String IdLabel;
 
     public Clothes(String title, int idClothes) {
         this.title = title;
-        IdClothes = idClothes;
+        this.IdClothes = idClothes;
+    }
+
+    public Clothes(int id, String title, int idClothes) {
+        this.idDB = id;
+        this.title = title;
+        this.IdClothes = idClothes;
+    }
+
+    public int getIdDB() {
+        return idDB;
+    }
+
+    public void setIdDB(int id) {
+        this.idDB = id;
     }
 
     public String getTitle() {

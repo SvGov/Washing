@@ -10,21 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.washing.R;
-import com.example.washing.activity.AddActivity;
 import com.example.washing.activity.EditActivity;
 
+import java.util.List;
+
 public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesViewHolder> {
-//    private final List<Clothes> cards;
-
-//    public ClothesAdapter(List<Clothes> cards) {
-//        this.cards = cards;
-//    }
-
+    private List<Clothes> clothesList;
     private Context context;
 
 
-    public ClothesAdapter(Context context) {
+    public ClothesAdapter(Context context, List<Clothes> clothesList) {
         this.context = context;
+        this.clothesList = clothesList;
     }
 
     // Создает необходимое число холдеров ("карточек")
@@ -39,13 +36,15 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesV
     // Отображает на холдерах нужную нам информацию
     @Override
     public void onBindViewHolder(@NonNull ClothesViewHolder holder, int index) {
-        holder.title.setText(ClothesDao.get(index).getTitle());
-        holder.photoClothes.setImageResource(ClothesDao.get(index).getIdClothes());
+        holder.title.setText(clothesList.get(index).getTitle());
+        holder.photoClothes.setImageResource(clothesList.get(index).getIdClothes());
 
         holder.itemView.setOnClickListener(
                 view -> {
+                    int indexDB = clothesList.get(index).getIdDB();
+
                     Intent intent = new Intent(context, EditActivity.class);
-                    intent.putExtra("index", index);
+                    intent.putExtra("indexDB", indexDB);
                     context.startActivity(intent);
                 }
         );
@@ -53,7 +52,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ClothesV
 
     @Override
     public int getItemCount() {
-        return ClothesDao.size();
+        return clothesList.size();
     }
 
     public static class ClothesViewHolder extends RecyclerView.ViewHolder {

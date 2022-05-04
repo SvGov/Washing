@@ -1,17 +1,17 @@
 package com.example.washing.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.washing.DBHelper;
 import com.example.washing.R;
 import com.example.washing.clothes.Clothes;
-import com.example.washing.clothes.ClothesDao;
 import com.example.washing.databinding.ActivityViewCardBinding;
 
 public class AddActivity extends AppCompatActivity {
     ActivityViewCardBinding binding;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class AddActivity extends AppCompatActivity {
         binding = ActivityViewCardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        dbHelper = new DBHelper(this);
     }
 
 
@@ -33,7 +34,7 @@ public class AddActivity extends AppCompatActivity {
             id_img = getResources().getIdentifier(filenameImg, "drawable", getPackageName());
         }
 
-        ClothesDao.add(new Clothes(title, id_img));
+        dbHelper.insert(new Clothes(title, id_img));
 
         Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
         startActivity(intent);

@@ -1,20 +1,25 @@
 package com.example.washing.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.washing.DBHelper;
+import com.example.washing.clothes.Clothes;
 import com.example.washing.clothes.ClothesAdapter;
 import com.example.washing.R;
-import com.example.washing.clothes.ClothesDao;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ClothesAdapter adapter;
+    private ArrayList<Clothes> clothesList;
 
 
     @Override
@@ -22,7 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new ClothesAdapter(this);
+        clothesList = new DBHelper(this).getListData();
+//        for (Clothes clth : clothesList) {
+//            Log.d("MY_LOGS!!!!!", "- " + clth.getId() + " " + clth.getTitle() + " " + clth.getIdClothes());
+//        }
+        adapter = new ClothesAdapter(this, clothesList);
 
         RecyclerView recycler = findViewById(R.id.rv_cards_clothes);
         recycler.setHasFixedSize(true);
